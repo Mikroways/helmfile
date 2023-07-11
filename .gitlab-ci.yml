@@ -9,9 +9,9 @@ stages:
 
 before_script:
   - export IMAGE_TAG="$CI_BUILD_REF_NAME"
-  - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
+  - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
 
-build-vpn:
+build:
   stage: build
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$IMAGE_TAG" .
@@ -20,7 +20,7 @@ build-vpn:
   only:
     - /^\d+\.\d+\.\d+(-\w+)*$/
 
-publish-vpn:
+publish:
   stage: publish
   script:
     - docker pull "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
