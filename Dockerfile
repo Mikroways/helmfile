@@ -1,14 +1,11 @@
-FROM golang:1.13-buster
-ENV DEBIAN_FRONTEND noninteractive
+FROM alpine:3.18
 
-RUN apt-get update && apt-get install -y locales \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+RUN apk add git bash curl
 ENV LANG en_US.utf8
 
 # SOPS
 ENV SOPS_VERSION 3.5.0
-RUN DPKG_ARCH=$(dpkg --print-architecture); \
-    wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SOPS_VERSION}_amd64.deb; \
+RUN wget -q https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops_${SOPS_VERSION}_amd64.deb; \
     apt install ./sops_${SOPS_VERSION}_amd64.deb; \
     rm sops_${SOPS_VERSION}_amd64.deb
 
@@ -31,6 +28,6 @@ RUN helm plugin install https://github.com/databus23/helm-diff
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
 
 # kubectl
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl; \
-    chmod +x ./kubectl; \
-    mv ./kubectl /usr/local/bin/kubectl
+ENV KUBECTL_VERSION v1.27.3
+RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -O /usr/bin/kubectl; \
+    chmod +x /usr/bin/kubectl
