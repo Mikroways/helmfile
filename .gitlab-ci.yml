@@ -8,7 +8,7 @@ stages:
   - publish
 
 before_script:
-  - export IMAGE_TAG="$CI_BUILD_REF_NAME"
+  - export IMAGE_TAG="$CI_COMMIT_REF_NAME"
   - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
 
 build:
