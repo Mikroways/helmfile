@@ -5,19 +5,19 @@ ENV LANG en_US.utf8
 WORKDIR /tmp/binaries
 
 # SOPS
-ENV SOPS_VERSION v3.7.3
+ENV SOPS_VERSION v3.8.1
 RUN wget -q https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64 -O /usr/bin/sops &&\
     chmod +x /usr/bin/sops
 
 # HELM
-ENV HELM_VERSION v3.12.2
+ENV HELM_VERSION v3.14.4
 RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O helm.tar.gz &&\
     tar -zxvf helm.tar.gz &&\
     chmod +x linux-amd64/helm &&\
     mv linux-amd64/helm /usr/bin/helm
 
 # HELMFILE
-ENV HELMFILE_VERSION 0.155.0
+ENV HELMFILE_VERSION 0.164.0
 RUN wget -q https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz -O helmfile.tar.gz &&\
     tar -zxvf helmfile.tar.gz &&\
     chmod +x helmfile &&\
