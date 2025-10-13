@@ -31,10 +31,10 @@ RUN wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_
 RUN rm -rf /tmp/binaries
 
 # CREATE NEW USER
-ENV USER=helm
+ENV USER=helm-user
 RUN addgroup -S $USER && adduser -S -G $USER $USER
 USER ${USER}
-ENV HELM_DATA_HOME=/home/${USER}
+ENV HELM_DATA_HOME=/home/${USER}/.local/share/helm
 ENV HELM_CACHE_HOME=/home/${USER}
 ENV HELM_CONFIG_HOME=/home/${USER}
 
@@ -47,4 +47,4 @@ RUN helm plugin install https://github.com/aslafy-z/helm-git --version ${HELM_GI
     helm plugin install https://github.com/databus23/helm-diff --version ${HELM_DIFF_VERSION} && \
     helm plugin install https://github.com/jkroepke/helm-secrets --version ${HELM_SECRETS_VERSION}
 
-WORKDIR /home/${USER}
+WORKDIR /home/${USER}/
