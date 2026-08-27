@@ -11,3 +11,4 @@ para usar como base en nuestros pipelines de CI.
     - `helm-secrets`
 - `helmfile`
 - `kubectl`
+- `aws-cli`

@@ -1,6 +1,6 @@
-FROM alpine:3.22
+FROM alpine:3.24
 
-RUN apk add git bash curl aws-cli
+RUN apk add git bash curl aws-cli jq
 ENV LANG=en_US.utf8
 WORKDIR /tmp/binaries
 
